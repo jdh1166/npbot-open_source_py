@@ -28,7 +28,7 @@ bot = commands.Bot(command_prefix='$', intents=intents)
 
 #함수모으는곳
 allowed_user_id = 687155683933945888
-webhook_url = 'https://canary.discord.com/api/webhooks/1175261210686521384/DAfKAB4nNkQklwppxi7D3NcbiAKyyt_PFi-UfjSAWpyofhtFfPCdIJx4m9tSVPyW5nWg'
+webhook_url = 'your_server_webhook'
 
 #.env파일 읽기
 
