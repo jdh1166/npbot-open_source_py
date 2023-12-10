@@ -27,7 +27,7 @@ intents.messages = True
 bot = commands.Bot(command_prefix='$', intents=intents)
 
 #함수모으는곳
-allowed_user_id = 687155683933945888
+allowed_user_id = your_discord_id
 webhook_url = 'your_server_webhook'
 
 #.env파일 읽기
