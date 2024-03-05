@@ -501,5 +501,7 @@ async def send_announcement(ctx, *, content):
     else:
         await ctx.send('죄송합니다. 권한이 없습니다.')
 
+
+
 #봇실행
 bot.run('봇토큰')
