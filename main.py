@@ -167,15 +167,15 @@ async def show_recent_error(ctx):
 
             # 최근 콘솔에서 발생한 에러 로그를 보여줌
             if error_logs:
-                await ctx.send(f'최근 콘솔 에러:\n```\n{" ".join(error_logs)}\n```')
+                await ctx.send(f'recent console error :\n```\n{" ".join(error_logs)}\n```')
             else:
-                await ctx.send('최근 콘솔에서 발생한 에러가 없습니다.')
+                await ctx.send('none console error.')
         except Exception as e:
-            # 예외가 발생한 경우 트레이스백 출력
+            # 예외가 발생한 경우 traceback 출력
             traceback_str = traceback.format_exc()
-            await ctx.send(f'최근 콘솔 에러 확인 중 오류 발생:\n```\n{traceback_str}\n```')
+            await ctx.send(f' recent error traceback :\n```\n{traceback_str}\n```')
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('none permission.')
 
 @bot.command(name='낚시꾼')
 async def generate_channel_link(ctx):
@@ -192,7 +192,7 @@ async def generate_channel_link(ctx):
     await ctx.send(f'{channel_link}')
 
 
-#os정보
+#컴퓨터 정보 불러오기
 @bot.command(name='os정보')
 async def get_os_info(ctx):
     system_info = platform.system()
@@ -212,10 +212,10 @@ async def get_os_info(ctx):
     free_space = disk_info.free
 
     response = (
-        f'운영체제: {system_info}\n'
-        f'호스트 이름: {node_info}\n'
-        f'운영체제 릴리스: {release_info}\n'
-        f'CPU 사용률: {cpu_percent}%\n'
+        f'os: {system_info}\n'
+        f'host name: {node_info}\n'
+        f'os relese: {release_info}\n'
+        f'CPU usage: {cpu_percent}%\n'
         f'메모리 사용률: {memory_percent}%\n'
         f'전체 저장 공간: {total_space / (1024 ** 3):.2f} GB\n'
         f'남은 저장 공간: {free_space / (1024 ** 3):.2f} GB'
@@ -223,7 +223,7 @@ async def get_os_info(ctx):
 
     await ctx.send(response)
 
-@bot.command(name='입장')
+@bot.command(name='join')
 async def join(ctx):
     global voice_channel
 
@@ -233,7 +233,7 @@ async def join(ctx):
 
     voice_channel = ctx.author.voice.channel
     await voice_channel.connect()
-    await ctx.send(f'음성 채널에 입장했습니다.')
+    await ctx.send(f'join the voice chennel.')
 
 @bot.command(name='play', aliases=['플레이'])
 async def play(ctx, url):
@@ -254,10 +254,10 @@ async def play(ctx, url):
     await ctx.send(f'노래를 재생합니다: {url}')
 
 
-@bot.command(name='재시작')
+@bot.command(name='reboot')
 async def restart_bot(ctx):
     if ctx.author.id == allowed_user_id:
-        await ctx.send('봇을 재시작합니다.')
+        await ctx.send('reboot.....')
 
         # 현재 실행 중인 봇 프로세스 종료
         script_path = '/home/desktop/coding/npbot-raspi/newbot/bot2.py'
@@ -266,14 +266,14 @@ async def restart_bot(ctx):
         # 봇 로그아웃
         await bot.close()
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('you need permission.')
 
 @bot.command(name='ping')
 async def ping(ctx):
     latency = round(bot.latency * 1000)  # 응답 지연 시간을 밀리초로 변환
-    await ctx.send(f'응답 지연 시간: {latency}ms')
+    await ctx.send(f'ping: {latency}ms')
 
-@bot.command(name='저장')
+@bot.command(name='save')
 async def save_response(ctx, *, response):
     if ctx.author.id == allowed_user_id:
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -292,11 +292,11 @@ async def save_response(ctx, *, response):
             with open(os.path.join(text_file_directory, text_file_path), 'a', encoding='utf-8') as text_file:
                 text_file.write(f'{response_number}: {response} (Timestamp: {current_time})\n')
 
-            await ctx.send(f'답변이 저장되었습니다 ({response_number})')
+            await ctx.send(f'saved ({response_number})')
         else:
-            await ctx.send('답변 저장에 실패했습니다.')
+            await ctx.send('save falied.')
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('none permisson.')
 
 @bot.command(name='db')
 async def retrieve_response(ctx, index: int):
@@ -306,11 +306,11 @@ async def retrieve_response(ctx, index: int):
         result = cursor.fetchone()
 
         if result:
-            await ctx.send(f'정보 {index}: {result[0]} (Timestamp: {result[1]})')
+            await ctx.send(f'info {index}: {result[0]} (Timestamp: {result[1]})')
         else:
-            await ctx.send('저장된 정보가 없습니다.')
+            await ctx.send('none.')
     else:
-        await ctx.send('권한이 없습니다.')
+        await ctx.send('none permission.')
 
 @bot.command(name='delete_db')
 async def delete_response(ctx, index: int):
