@@ -85,7 +85,7 @@ async def on_ready():
     channel = bot.get_channel(channel_id)
     
     if channel:
-        await channel.send('봇이 시작되었습니다.')
+        await channel.send('bot is starting.')
     
     # jishaku 확장 로드
     await bot.wait_until_ready()
@@ -216,7 +216,7 @@ async def get_os_info(ctx):
         f'host name: {node_info}\n'
         f'os relese: {release_info}\n'
         f'CPU usage: {cpu_percent}%\n'
-        f'메모리 사용률: {memory_percent}%\n'
+        f'memory usage: {memory_percent}%\n'
         f'전체 저장 공간: {total_space / (1024 ** 3):.2f} GB\n'
         f'남은 저장 공간: {free_space / (1024 ** 3):.2f} GB'
     )
@@ -251,7 +251,7 @@ async def play(ctx, url):
         url2 = info['formats'][0]['url']
         voice_channel.play(discord.FFmpegPCMAudio(url2, executable='ffmpeg', options='-vn -ar 48000 -ac 2'), after=lambda e: print('done', e))
 
-    await ctx.send(f'노래를 재생합니다: {url}')
+    await ctx.send(f'playing music: {url}')
 
 
 @bot.command(name='reboot')
@@ -318,14 +318,14 @@ async def delete_response(ctx, index: int):
         # 인덱스에 해당하는 답변을 삭제
         cursor.execute('DELETE FROM responses WHERE id = ?', (index,))
         conn.commit()
-        await ctx.send(f'저장된 정보 {index}이(가) 삭제되었습니다.')
+        await ctx.send(f'{index}is deleted.')
     else:
-        await ctx.send('권한이 없습니다.')
+        await ctx.send('none permission.')
 
 @bot.command(name='저장파일')
 async def save_file(ctx):
     if ctx.author.id == allowed_user_id:
-        await ctx.send('파일을 10초 이내에 올려주세요.')
+        await ctx.send('put the file in 10sec.')
 
         def check(message):
             return message.author == ctx.author and message.attachments
@@ -334,11 +334,11 @@ async def save_file(ctx):
             message = await bot.wait_for('message', check=check, timeout=10.0)
         except asyncio.TimeoutError:
             print("Timeout error occurred")  # 디버그 출력 추가
-            await ctx.send('파일이 제시간에 오지 않아 저장되지 않았습니다.')
+            await ctx.send('timeout please try again.')
             return
         except Exception as e:
             print(f"An error occurred: {e}")  # 디버그 출력 추가
-            await ctx.send(f'파일 저장 중 오류가 발생했습니다: {e}')
+            await ctx.send(f'An error occurred: {e}')
             return
 
         # 파일을 저장할 디렉토리 확인 및 생성
@@ -358,9 +358,9 @@ async def save_file(ctx):
 
         # 파일의 ID와 생성 시간을 말하기
         creation_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        await ctx.send(f'파일이 성공적으로 저장되었습니다. ID: {file_id}, 생성 시간: {creation_time}')
+        await ctx.send(f'Succeed save file. ID: {file_id}, made time: {creation_time}')
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('you need permission.')
 
 @bot.command(name='file_id')
 async def send_file(ctx, file_id: int):
@@ -387,11 +387,11 @@ async def send_file(ctx, file_id: int):
             else:
                 await ctx.send(f'file_{file_id}로 시작하는 파일이 존재하지 않습니다.')
         else:
-            await ctx.send('저장된 파일이 없습니다.')
+            await ctx.send('not found.')
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('none permission.')
 
-@bot.command(name='파일목록')
+@bot.command(name='file_list')
 async def file_list(ctx):
     if ctx.author.id == allowed_user_id:
         files = os.listdir(text_file_directory)
@@ -406,11 +406,11 @@ async def file_list(ctx):
             if file_info:
                 await ctx.send('\n'.join(file_info))
             else:
-                await ctx.send('저장된 파일이 없습니다.')
+                await ctx.send('no saved file.')
         else:
-            await ctx.send('저장된 파일이 없습니다.')
+            await ctx.send('none saved file.')
     else:
-        await ctx.send('죄송합니다. 권한이 없습니다.')
+        await ctx.send('none permission')
 
 @bot.command(name='delete_file')
 async def delete_file(ctx, file_id: int):
