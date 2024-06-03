@@ -9,3 +9,6 @@
 
 
 **IDE** = **VSC**
+
+
+**DISCORD PY VERSION** = **2.0.0**
