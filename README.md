@@ -5,7 +5,7 @@
 
 
 ## 개발환경
-**OS** = **Windows 11 pro **
+**OS** = ** Windows 11 pro **
 
 Linux (all version work) maybe?
 
