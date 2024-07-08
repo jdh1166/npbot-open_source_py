@@ -5,9 +5,9 @@
 
 
 ## 개발환경
-**OS** = **Windows 11 pro insider build**
+**OS** = **Windows 11 pro **
 
-        ** linux debian build(all version working)**
+Linux (all version work) maybe?
 
 **IDE** = **VSC**
 
