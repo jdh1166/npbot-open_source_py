@@ -76,7 +76,7 @@ async def on_ready():
     await bot.change_presence(
         activity=discord.Activity(
             type=discord.ActivityType.watching,
-            name="Made By NP_FishermanV4",
+            name="Made By Fisher",
             url="https://www.youtube.com/@NP_FishermanV4"  # 여기에 링크를 넣어주세요
         )
     )
