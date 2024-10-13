@@ -113,16 +113,16 @@ def start_bot(queue):
 
 @bot.command(name='cpu')
 async def show_cpu_info(ctx):
-    # 각 코어의 사용률을 가져옵니다.
+    # 각 코어의 사용률을 가져옴
     cpu_percentages = psutil.cpu_percent(percpu=True)
 
-    # 총 CPU 사용률을 가져옵니다.
+    # 총 CPU 사용률을 가져옴
     total_cpu_percentage = psutil.cpu_percent()
 
-    # 사용 가능한 메모리 정보를 가져옵니다.
+    # 사용 가능한 메모리 정보를 가져옴
     memory_info = psutil.virtual_memory()
 
-    # 라즈베리 파이에서는 온도를 가져오는 기능이 없으므로 0으로 설정합니다.
+    # 라배에는 온도 측정 없음 (일단 보류)
     cpu_temp = 0
 
     # 시스템 정보를 가져옵니다.
@@ -151,7 +151,7 @@ async def show_cpu_info(ctx):
     await ctx.send(message)
 
 def get_cpu_model():
-    # /proc/cpuinfo 파일에서 CPU 모델 정보를 가져옵니다.
+    # /proc/cpuinfo (only linux)
     with open('/proc/cpuinfo', 'r') as f:
         for line in f:
             if line.startswith('model name'):
